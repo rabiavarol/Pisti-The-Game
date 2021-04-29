@@ -35,9 +35,13 @@ public class LeaderboardRecordServiceImpl implements LeaderboardRecordService {
     @Override
     public LeaderboardRecord createRecord(LeaderboardRecord record) {
         List<Player> players = mLeaderboardRecordRepository.getAllPlayers();
-        for(int i = 0; i< players.size(); i++){
-            if(record.getPlayer().getId() != players.get(i).getId()) {
-                return mLeaderboardRecordRepository.save(record);
+        if(players.size() == 0) { // very first record in the leaderboard
+            mLeaderboardRecordRepository.save(record);
+        } else {
+            for(int i = 0; i < players.size(); i++){
+                if(!record.getPlayer().getId().equals(players.get(i).getId())) {
+                    return mLeaderboardRecordRepository.save(record);
+                }
             }
         }
         return null;
@@ -90,9 +94,9 @@ public class LeaderboardRecordServiceImpl implements LeaderboardRecordService {
     @Override
     public List<LeaderboardRecord> getRecordsByDate(String period) {
         try {
-            List<LeaderboardRecord> records = null;
+            List<LeaderboardRecord> records;
             Date now = new java.util.Date();
-            Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:");
             String nowDate = formatter.format(now);
             if (period.equals("weekly")) {
                 Date sevenDaysAgo = Date.from(Instant.now().minus(Duration.ofDays(7)));
