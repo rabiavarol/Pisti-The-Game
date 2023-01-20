@@ -1,9 +1,3 @@
-# CENG453 Spring 2021 Term Project
-### Group 7
-#### *Authors*:
-- Rabia Varol 
-- Doruk Gerçel 
-
 #### *Explanation*:
 This is a desktop Pişti Game with both server and client sides. The game has three different singleplayer modes with increasing difficulty (third level is bluffing pişti) and a multiplayer level (fourth level). This game is the term project of METU CENG 453 for the Spring 2021 semester.
 
